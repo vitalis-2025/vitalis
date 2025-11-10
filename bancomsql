@@ -1,0 +1,53 @@
+Tabela de usuários/pacientes
+CREATE TABLE usuarios (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(500) NOT NULL,
+    email VARCHAR(500) UNIQUE NOT NULL,
+    senha VARCHAR(500) NOT NULL,
+telefone VARCHAR(14),
+    data_nascimento DATE
+);
+
+-- Tabela de profissionais de saúde
+CREATE TABLE profissionais_saude (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(500) NOT NULL,
+    email VARCHAR(500) UNIQUE NOT NULL,
+    senha VARCHAR(500) NOT NULL,
+telefone VARCHAR(20),
+    data_nascimento DATE,
+    crm VARCHAR(20) UNIQUE,
+cpf VARCHAR(11) UNIQUE
+);
+
+-- Tbela de Influencer
+CREATE TABLE influencer (
+id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(500) NOT NULL,
+    email VARCHAR(500) UNIQUE NOT NULL,
+    senha VARCHAR(500) NOT NULL,
+    telefone VARCHAR(14),
+    tipo_conteudo ENUM('Podcast', 'Blog', 'Ambos') NOT NULL,
+    conteudo VARCHAR(500) NOT NULL,
+    canal VARCHAR(500) NOT NULL
+);
+
+-- Tabela de blog
+CREATE TABLE blog (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(300) NOT NULL,
+    conteudo LONGTEXT NOT NULL,
+    resumo TEXT,
+    url_imagem_capa VARCHAR(500),
+    url_video_youtube VARCHAR(500),
+    influencer_id INT,
+    ativo BOOLEAN DEFAULT TRUE,
+    FOREIGN KEY (influencer_id) REFERENCES influencer(id)
+);
+
+CREATE TABLE motivacao (
+id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT,
+    video VARCHAR(500),
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id)
+);
